@@ -1,0 +1,16 @@
+total_was = Input.cart.subtotal_price_was
+if total_was >= Money.new(cents: 10000) and total_was < Money.new(cents: 15000)
+  Input.cart.line_items.each do |line_item|
+    line_item.change_line_price(line_item.line_price * 0.90, message: "10% off")
+  end
+elsif total_was >= Money.new(cents: 15000) and total_was < Money.new(cents: 20000)
+  Input.cart.line_items.each do |line_item|
+    line_item.change_line_price(line_item.line_price * 0.85, message: "15% off")
+  end
+elsif total_was >= Money.new(cents: 20000)
+  Input.cart.line_items.each do |line_item|
+    line_item.change_line_price(line_item.line_price * 0.80, message: "20% off")
+  end
+end
+
+Output.cart = Input.cart
