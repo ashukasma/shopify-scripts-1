@@ -1,0 +1,13 @@
+Input.cart.line_items.each do |line_item|
+  product = line_item.variant.product
+  next if product.gift_card?
+  product.tags.each do |i|
+    a = i.split('-', 2)
+    if a[0] == 'clearance' and a[1]
+      line_item.change_line_price(line_item.line_price * a[1].to_i * 0.01, message: "Clearance")
+      break
+    end
+  end
+end
+
+Output.cart = Input.cart
